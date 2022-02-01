@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getGameDetail } from "../Actions";
+import { SpinnerDiamond } from 'spinners-react';
+import { Link, useHistory } from "react-router-dom";
 
 function GameDetail() {
     const { data, success, error, loading } = useSelector(
@@ -9,14 +11,41 @@ function GameDetail() {
     );
     const dispatch = useDispatch();
     const { idVideogame } = useParams();
+    const history = useHistory()
+    const id = data.id
 
     useEffect(() => {
         dispatch(getGameDetail(idVideogame));
     }, [dispatch, idVideogame]);
 
+    const destroy = async () => {
+        await fetch("http://localhost:3001/videogame/" + id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        history.push(`/videogames`)
+    }
+
+
+    // const update = async (e) => {
+    //     e.preventDefault();
+    //     if (validate()) {
+    //         await fetch("http://localhost:3001/videogames", {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(input)
+    //         })
+    //         history.push(`/videogames`)
+    //     }
+    // }
+
     return (
-        <div className='detailcontent'>
-            {loading && <div className='loading'></div>}
+        <div className='detailcontent' style={loading ? { height: '80%' } : { display: 'flex' }}>
+            {loading && <div className='loading'><SpinnerDiamond color={'#f90021'} secondaryColor={'#f90021'} size={100} /></div>}
             {!loading && error && (
                 <>
                     {error === 404 ? <h1 className='error'>Game not found</h1> : <h1 className='error'>Error {error}</h1>}
@@ -35,6 +64,16 @@ function GameDetail() {
                             <p><b>Platforms: </b>{data.platforms.join(', ')}</p>
                         </div>
                     </div>
+                    {data.fromDB && <div className="deleteupdate">
+                        <button className="button updatebtn" onClick={() => destroy()}>Delete game</button>
+                        <Link
+                            to={`/videogames/edit/${data.id}`}
+                            style={{ textDecoration: "none" }}
+                            className="linkbtn"
+                        >
+                            <button className="button updatebtn2">Edit game</button>
+                        </Link>
+                    </div>}
                 </>
             )}
         </div>

@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getVideogames, getGenres } from "../Actions";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { SpinnerDiamond } from 'spinners-react';
 
 function Home() {
-    const { data, success, error, loading } = useSelector(
+    const { data, success, loading } = useSelector(
         (state) => state.results
     );
     const genres = useSelector(
@@ -17,7 +18,7 @@ function Home() {
     const [maxPage, setMaxPage] = useState(0);
     const [genre, setGenre] = useState('')
     const [filteredData, setFilteredData] = useState([])
-    const [sort, setSort] = useState('A-Z')
+    const [sort, setSort] = useState('Rating+')
     const [source, setSource] = useState('')
 
     useEffect(() => {
@@ -55,8 +56,8 @@ function Home() {
     }
 
     return (
-        <div className='home'>
-            {loading && <div className='loading'></div>}
+        <div className='home' style={loading ? {height: '80%'} : {display: 'flex'}}>
+            {loading && <div className='loading'><SpinnerDiamond color={'#f90021'} secondaryColor={'#f90021'} size={100}/></div>}
             {!loading && success && (
                 <>
                     <div className='sidebar'>
@@ -79,6 +80,14 @@ function Home() {
                                 <option value={'Z-A'}>Z-A</option>
                                 <option value={'Rating+'}>Higher Rating</option>
                                 <option value={'Rating-'}>Lower Rating</option>
+                            </select>
+                        </div>
+                        <div className='showitems'>
+                            <select value={limit} onChange={(e) => setLimit(e.target.value)}>
+                                <option value={9}>9 Games</option>
+                                <option value={12}>12 Games</option>
+                                <option value={15}>15 Games</option>
+                                <option value={30}>30 Games</option>
                             </select>
                         </div>
                         <div>
@@ -105,8 +114,9 @@ function Home() {
                                         )
                                         .map((pageNumber, i) => (
                                             <>
-                                            {pageNumber === maxPage && currentPage < (maxPage - 3) && <span>...</span>}
+                                                {pageNumber === maxPage && currentPage < (maxPage - 3) && <span>...</span>}
                                                 <button
+                                                    className="pagebutton"
                                                     key={i}
                                                     onClick={() => setCurrentPage(pageNumber)}
                                                     disabled={currentPage === pageNumber}
@@ -117,17 +127,17 @@ function Home() {
                                             </>
                                         ))}
                             </div>
-                            <div className='showitems'>
+                            {/* <div className='showitems'>
                                 <label>Show: </label>
                                 <select value={limit} onChange={(e) => setLimit(e.target.value)}>
                                     <option value={9}>9 Games</option>
-                                    <option value={20}>20 Games</option>
+                                    <option value={12}>12 Games</option>
+                                    <option value={15}>15 Games</option>
                                     <option value={30}>30 Games</option>
-                                    <option value={40}>40 Games</option>
                                 </select>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className='cards'>
+                        {/* <div className='cards'>
                             {filteredData &&
                                 filteredData.sort(applySort).slice(limit * (currentPage - 1), (limit * currentPage)).map((game) => (
                                     <Link className='gamecard' key={game.id} to={`/videogames/${game.id}`}>
@@ -139,6 +149,50 @@ function Home() {
                                         </div>
                                     </Link>
                                 ))}
+                        </div> */}
+                         <div className='cards'>
+                            {filteredData &&
+                                filteredData.sort(applySort).slice(limit * (currentPage - 1), (limit * currentPage)).map((game) => (
+                                    <Link className='gamecard' key={game.id} to={`/videogames/${game.id}`}>
+                                        <div className='card__image' style={{ backgroundImage: `url(${game.image || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAACuCAMAAAClZfCTAAAAIVBMVEX19fXd3d3z8/Pq6urb29vi4uLx8fHt7e3n5+fk5OTf39/UY198AAACNElEQVR4nO3a4Y6rIBCGYRUE9P4veO0KijB022xSTOd9zj/Xk9AvMgjOMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgDualrGy+t6juhNXB7Sxofe4bmQVIxqt6z2w25jkhMbR9B7ZbcjzbMNMS3wroqX3yG7DtCJae4+sm+lqEFb8FNFU3qtCaAXyilVDSN7+J6Jx7j3+D2gWnkYkFzrK05OI1sV457wJ2avk9T9b1RHZOduTTcdd19qjOqK13GwEIro+QsJ7tPudbi5f8p3iWiSfe8zS0/bh4fYgRdQ6GRJOAJRGdG7oJx+CyaoSEe2Ot0GfZtZRmer3TJ0RpUVryfJIU6/avqmMKJ14XAqPjRlVR0kqI4qlp3xe4uVyVdMYUfzNVdVJ14koleZ6fd+nWnmurTGiPQlXH5HEha7ITmNETrz6sN9fFCOFEdl9yZeOIve/FGVcY0T7VSLK8BT9Sa5Fwqe0GAa1KO1h6xUtvnWzoqUkqs1Y7HmYiuw0RhR/c7UZW57e/tWqN6C4YTVWjKJ861YZUTouCpeM4gkJO/38McpWNXu0hFRbN50Rnb/arKPd/i3ulZu/l7Aby9uInMu+nAm9WUojanWjSQ1+WiOSMxL7+9RGJPXEyDfqjajqjnXSp1jlEW2z7fzG6OdWo5buiB4NRsGYsDQ61YnoNRoiEg7y36GiFbvZiE5Cp7KZ+g29hw4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIbhB3oYDvixwDtCAAAAAElFTkSuQmCC'})` }}>
+                                        </div>
+                                            <div className='gamecard-content'>
+                                                <h4>{game.name}</h4>
+                                                <p title={game.genres.join(", ")}>{game.genres.join(", ")}</p>
+                                            </div>
+                                    </Link>
+                                ))}
+                        </div>
+                        <div className='pagination'>
+                            <div className='paginator'>
+                                {!!maxPage &&
+                                    [...Array(maxPage)]
+                                        .map((el, i) => i + 1)
+                                        .filter(
+                                            (pageNumber) =>
+                                                pageNumber === 1 ||
+                                                pageNumber === maxPage ||
+                                                pageNumber === currentPage - 1 ||
+                                                pageNumber === currentPage - 2 ||
+                                                pageNumber === currentPage ||
+                                                pageNumber === currentPage + 1 ||
+                                                pageNumber === currentPage + 2
+                                        )
+                                        .map((pageNumber, i) => (
+                                            <>
+                                                {pageNumber === maxPage && currentPage < (maxPage - 3) && <span>...</span>}
+                                                <button
+                                                    className="pagebutton"
+                                                    key={i}
+                                                    onClick={() => setCurrentPage(pageNumber)}
+                                                    disabled={currentPage === pageNumber}
+                                                >
+                                                    {pageNumber}
+                                                </button>
+                                                {pageNumber === 1 && currentPage > 4 && <span>...</span>}
+                                            </>
+                                        ))}
+                            </div>
                         </div>
                     </div>
                 </>

@@ -57,6 +57,7 @@ router.post('/videogames', async (req, res) => {
     const game = await Videogame.create({
         name: req.body.name,
         description: req.body.description,
+        rating: req.body.rating,
         image: req.body.image,
         releaseDate: req.body.released,
         platforms: req.body.platforms.join(',')
@@ -102,6 +103,40 @@ router.get('/videogame/:idVideogame', async function (req, res, next) {
                 }
             })
         }
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.put('/videogame/:idVideogame', async function (req, res, next) {
+    try {
+        const { idVideogame } = req.params
+        const update = await Videogame.update({
+            name: req.body.name,
+            description: req.body.description,
+            image: req.body.image,
+            rating: req.body.rating,
+            releaseDate: req.body.released,
+            platforms: req.body.platforms.join(','),
+        }, { where: { id: idVideogame } }).then(async function () {
+            await Videogame.findByPk(idVideogame).then(async function (game) {
+                await Genre.findOrCreate({ where: { id: req.body.genres } }).then(genre => {
+                    game.setGenres(req.body.genres)
+                })
+            })
+        })
+        res.json('Game updated')
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+})
+
+router.delete('/videogame/:idVideogame', async function (req, res, next) {
+    try {
+        const { idVideogame } = req.params
+        await Videogame.destroy({ where: { id: idVideogame } })
+        res.json('Game deleted')
     } catch (error) {
         res.status(500).send(error)
     }

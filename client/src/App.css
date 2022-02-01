@@ -9,14 +9,15 @@ html {
 }
 
 body {
-  background-color: #1b2838;
+  background-color: var(--bg);
 }
 
 .logo h1 {
-  color: white;
+  color: var(--primary-200);
   margin: 0;
   padding: 0;
   text-decoration: none;
+  margin-left: 10px;
 }
 
 a {
@@ -25,7 +26,7 @@ a {
 
 .navbar {
   padding: 10px 0;
-  background-color: #171a21;
+  background-color: var(--dark2);
   margin-bottom: 15px;
 }
 
@@ -35,7 +36,7 @@ a {
 }
 
 .container {
-  width: 1200px;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -43,30 +44,35 @@ a {
 .searchbox input[type="text"] {
   font-size: 1.1em;
   line-height: 1.3em;
+  width: 500px;
   padding: 4px 8px;
-  border-radius: 15px;
   border: 1px solid black;
+  margin-right: 10px;
+}
+
+.searchbox input::placeholder {
+  color: var(--dark);
+  font-weight: 700;
 }
 
 .searchbox input[type="text"]:focus {
   outline: none;
-  box-shadow: 0px 0px 1px 3px rgba(255, 255, 255, 0.4);
 }
 
-.searchbox input[type="text"]:hover {
+/* .searchbox input[type="text"]:hover {
   border-color: rgba(255, 255, 255, 0.6);
-}
+} */
 
 .searchbox__results {
   position: absolute;
   background-color: white;
-  right: 0;
-  width: 400px;
+  left: 1px;
+  width: 516px;
   max-height: 300px;
   overflow-x: hidden;
   overflow-y: auto;
-  border-radius: 2px;
   z-index: 20;
+  border: none;
 }
 
 .searchbox {
@@ -87,7 +93,7 @@ a:visited {
 }
 
 .searchbox__result a:hover {
-  background-color: #f0f0f0;
+  background-color: var(--primary-200);
 }
 
 .searchbox__result-image {
@@ -121,11 +127,11 @@ a:visited {
 
 .gamecard {
   transition: all 0.2s;
-  height: 180px;
+  height: 230px;
   overflow: hidden;
   border-radius: 5px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   text-decoration: none;
   color: black;
 }
@@ -135,28 +141,27 @@ a:visited {
 }
 
 .gamecard-content {
-  padding: 0 10px;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.9) 100%
-  );
+  padding: 10px 10px;
+  background: var(--dark2);
   color: white;
+  width: 100%;
+  text-overflow: ellipsis;
 }
 
 .home {
   display: flex;
+  justify-content: center;
 }
 
 .sidebar {
-  margin-right: 15px;
+  margin-right: 20px;
+  margin-top: 3.6em;
   width: 200px;
   flex-shrink: 0;
 }
 
 .gamecard-content p {
   transition: height 0.2s;
-  height: 0;
   margin: 0;
   font-size: 15px;
   white-space: nowrap;
@@ -171,23 +176,28 @@ a:visited {
   text-shadow: 2px 2px 2px rgb(0 0 0 / 60%);
 }
 
-.gamecard:hover p {
+/* .gamecard:hover p {
   height: 30px;
-}
+} */
 
 .pagination {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 select {
   width: 100%;
   padding: 5px;
-  border-radius: 15px;
   border: 1px solid black;
+  box-shadow: 5px 5px 0px var(--primary-300);
   cursor: pointer;
   font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+}
+
+select:focus {
+  outline: none;
 }
 
 .sidebar select {
@@ -207,14 +217,12 @@ select {
 .paginator button[disabled] {
   color: rgb(228, 227, 227);
   cursor: default;
-  background: linear-gradient(to bottom, #353636 5%, rgb(85, 84, 84) 100%);
-  box-shadow: inset 0px 1px 3px 0px #636666;
-  background-color: #464646;
-  border: 1px solid #292929;
-  transform: scale(0.95);
+  box-shadow: none;
+  background-color: rgb(85, 84, 84);
+  transform: scale(0.95) translate(3px, 3px);
 }
 
-.paginator button {
+/* .paginator button {
   transition: transform 0.2s;
   padding: 5px 0;
   margin: 0 3px;
@@ -226,11 +234,46 @@ select {
   background-color: #768d87;
   box-shadow: inset 0px 1px 3px 0px #91b8b3;
   background: linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+} */
+
+.pagebutton {
+  background-color: var(--primary-200);
+  border: 0;
+  box-shadow: 5px 5px 0px var(--primary-300);
+  color: var(--light);
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 800;
+  max-width: 4em;
+  max-height: 4em;
+  width: 2em;
+  padding: 0.3em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
 }
 
-.paginator button:hover {
-  transform: scale(0.95);
+.pagebutton + .pagebutton {
+  margin-left: 0.5em;
 }
+
+.pagebutton + span {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.pagebutton:active {
+  transform: translate(5px, 5px);
+  box-shadow: none;
+}
+
+/* .paginator button:hover {
+  transform: scale(0.95);
+} */
 
 .paginator span {
   color: white;
@@ -261,9 +304,12 @@ select {
   border-radius: 10px;
   flex-direction: column;
   box-shadow: 0px 0px 10px 1px black;
+  margin-bottom: 15px;
 }
 
-.form input[type="text"], .form input[type="date"] {
+.form input[type="text"],
+.form input[type="date"],
+.form input[type="number"] {
   font-size: 1.1em;
   line-height: 1.3em;
   padding: 4px 8px;
@@ -280,7 +326,7 @@ select {
   margin-top: 0;
 }
 
-.button {
+/* .button {
   transition: all 0.2s;
   align-self: center;
   border-radius: 6px;
@@ -294,28 +340,40 @@ select {
     rgba(53, 221, 222, 1) 0%,
     rgba(78, 111, 255, 1) 100%
   );
-}
+} */
 
-.button:hover {
-  text-shadow: 2px 2px 2px rgb(0 0 0 / 60%);
+/* .button:hover {
   color: white;
-  background: linear-gradient(
-    180deg,
-    rgba(89, 243, 244, 1) 0%,
-    rgba(122, 147, 255, 1) 100%
-  );
-}
+} */
 
 .button:active {
-  background: linear-gradient(
-    0deg,
-    rgba(53, 221, 222, 1) 0%,
-    rgba(78, 111, 255, 1) 100%
-  );
+  transform: translate(5px, 5px);
+  box-shadow: none;
 }
 
-.button--block {
+.button {
   width: 100%;
+  background-color: var(--primary-200);
+  border: 0;
+  box-shadow: 5px 5px 0px var(--primary-300);
+  color: var(--light);
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
+  font-weight: 800;
+  min-width: 8em;
+  padding: 0.75em 1.4em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+}
+
+.button:hover,
+.button:focus {
+  background-color: var(--primary-200);
+  background: radial-gradient(circle, var(--primary-200), var(--secondary));
 }
 
 .formlabel {
@@ -324,11 +382,7 @@ select {
 }
 
 .loading {
-  background-image: url("assets/loading.gif");
-  height: 200px;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
+  display: flex;
 }
 
 .detailcontent {
@@ -340,7 +394,7 @@ select {
   width: 750px;
   max-width: 750px;
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: var(--dark2);
   box-shadow: 0px 0px 10px 1px black;
   border-radius: 5px;
   margin-bottom: 15px;
@@ -362,13 +416,13 @@ button {
   font-family: "Noto Sans", sans-serif;
 }
 
-.button {
+/* .button {
   background: linear-gradient(
     180deg,
     rgba(53, 221, 222, 1) 0%,
     rgba(78, 111, 255, 1) 100%
   );
-}
+} */
 
 input {
   font-family: "Noto Sans", sans-serif;
@@ -393,10 +447,24 @@ input {
   margin: 20px;
   border-radius: 10px;
   color: white;
+  max-width: 60%;
+}
+
+.landingpage .button {
+  max-width: 13em;
+  margin-top: 2em;
+}
+
+.landingpage p {
+  margin: 0;
 }
 
 .landingpage h1 {
-  padding-bottom: 50px;
+  padding-bottom: 10px;
+}
+
+.boldh1 {
+  color: var(--primary-200);
 }
 
 .landingbackground {
@@ -423,4 +491,38 @@ input {
 
 .danger {
   color: tomato;
+}
+
+.searchicon {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.inputdiv {
+  display: flex;
+  align-items: center;
+}
+
+.box {
+  height: 100%;
+}
+
+.logo__icon {
+  height: 30px;
+  width: 30px;
+}
+
+.logo__link {
+  display: flex;
+  align-items: center;
+}
+
+.updatebtn2 {
+  margin-top: 2em;
+}
+
+.updatebtn,
+.updatebtn2 {
+  margin-left: 2em;
 }

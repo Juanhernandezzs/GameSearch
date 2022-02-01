@@ -3,6 +3,8 @@ const fetch = require('node-fetch')
 export const GET_VIDEOGAMES = 'GET_VIDEOGAMES'
 export const GET_GAME_DETAIL = 'GET_GAME_DETAIL'
 export const GET_GENRES = 'GET_GENRES'
+export const UPDATE_GAME = 'UPDATE_GAME'
+export const DELETE_GAME = 'DELETE_GAME'
 
 export function getVideogames() {
     return (dispatch) => {
@@ -43,7 +45,6 @@ export function getGameDetail(id) {
         fetch('http://localhost:3001/videogame/' + id)
             .then(async r => {
                 if (r.status === 200) {
-                    console.log('no error', r)
                     dispatch({
                         type: GET_GAME_DETAIL, payload: {
                             data: await r.json(),
@@ -63,7 +64,6 @@ export function getGameDetail(id) {
                     })
                 }
             }).catch(err => {
-                console.log('error', err)
                 dispatch({
                     type: GET_GAME_DETAIL, payload: {
                         data: {},

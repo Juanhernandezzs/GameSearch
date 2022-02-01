@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
   sequelize.define('videogame', {
     id: {
       type: DataTypes.UUID,
-      defaultValue: Sequelize.UUIDV4, 
+      defaultValue: Sequelize.UUIDV4,
       allowNull: false,
       primaryKey: true
     },

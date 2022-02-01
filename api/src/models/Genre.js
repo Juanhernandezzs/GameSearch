@@ -16,4 +16,3 @@ module.exports = (sequelize) => {
     });
 };
 
-//apikey 97ec21b1cf96491c8bd49d994f0b8093
