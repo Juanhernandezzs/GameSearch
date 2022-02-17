@@ -14,7 +14,7 @@ function SearchBar() {
     }
     async function doSearch() {
         if (name.length > 0) {
-            let response = await fetch(`http://localhost:3001/videogames?name=${name}`);
+            let response = await fetch(`/api/videogames?name=${name}`);
             if (response.status === 200) {
                 setSearchResults(await response.json())
             }

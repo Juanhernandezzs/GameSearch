@@ -77,7 +77,7 @@ function AddGame() {
         e.preventDefault()
         if (validate()) {
             if (input.id) {
-                await fetch("http://localhost:3001/videogame/" + input.id, {
+                await fetch("/api/videogame/" + input.id, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ function AddGame() {
                 })
                 history.push(`/videogames`)
             } else {
-                await fetch("http://localhost:3001/videogames", {
+                await fetch("/api/videogames", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ function AddGame() {
     // const create = async (e) => {
     //     e.preventDefault();
     //     if (validate()) {
-    //         await fetch("http://localhost:3001/videogames", {
+    //         await fetch("/api/videogames", {
     //             method: 'POST',
     //             headers: {
     //                 'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ function AddGame() {
     // const update = async (e) => {
     //     e.preventDefault();
     //     if (validate()) {
-    //         await fetch("http://localhost:3001/videogames", {
+    //         await fetch("/api/videogames", {
     //             method: 'PUT',
     //             headers: {
     //                 'Content-Type': 'application/json'

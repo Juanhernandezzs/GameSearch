@@ -1,0 +1,27 @@
+{
+  "name": "pi-videogames",
+  "version": "1.0.0",
+  "description": "GameSearch is a Single Page Application made during the <a href=\"https://soyhenry.com/\">Henry</a> bootcamp.",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-scripts": "4.0.0",
+    "spinners-react": "^1.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node api/index.js",
+    "build": "cd client && react-scripts build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juanhernandezzs/PI-Videogames-FT15a.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Juanhernandezzs/PI-Videogames-FT15a/issues"
+  },
+  "homepage": "https://github.com/Juanhernandezzs/PI-Videogames-FT15a#readme"
+}

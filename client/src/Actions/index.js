@@ -17,7 +17,7 @@ export function getVideogames() {
                 loading: true
             }
         })
-        fetch(`http://localhost:3001/videogames`).then(r => r.json())
+        fetch(`/api/videogames`).then(r => r.json())
             .then(r => {
                 dispatch({
                     type: GET_VIDEOGAMES, payload: {
@@ -42,7 +42,7 @@ export function getGameDetail(id) {
                 loading: true
             }
         })
-        fetch('http://localhost:3001/videogame/' + id)
+        fetch('/api/videogame/' + id)
             .then(async r => {
                 if (r.status === 200) {
                     dispatch({
@@ -88,7 +88,7 @@ export function getGamesByName(name) {
                 loading: true
             }
         })
-        fetch(`http://localhost:3001/videogames?name=${name}`).then(r => r.json())
+        fetch(`/api/videogames?name=${name}`).then(r => r.json())
             .then(r => {
                 dispatch({
                     type: GET_VIDEOGAMES, payload: {
@@ -113,7 +113,7 @@ export function getGamesByName(name) {
 
 export function getGenres() {
     return (dispatch) => {
-        fetch('http://localhost:3001/genres').then(r => r.json())
+        fetch('/api/genres').then(r => r.json())
             .then(r => { dispatch({ type: GET_GENRES, payload: r }) })
     }
 }

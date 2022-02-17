@@ -19,7 +19,7 @@ function GameDetail() {
     }, [dispatch, idVideogame]);
 
     const destroy = async () => {
-        await fetch("http://localhost:3001/videogame/" + id, {
+        await fetch("/api/videogame/" + id, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ function GameDetail() {
     // const update = async (e) => {
     //     e.preventDefault();
     //     if (validate()) {
-    //         await fetch("http://localhost:3001/videogames", {
+    //         await fetch("/api/videogames", {
     //             method: 'POST',
     //             headers: {
     //                 'Content-Type': 'application/json'
