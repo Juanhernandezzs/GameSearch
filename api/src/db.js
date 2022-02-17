@@ -7,7 +7,7 @@ const {
 } = process.env;
 
 console.log(process.env.DATABASE_URL)
-const sequelize = new Sequelize(process.env.DATABASE_URL || `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, {
+const sequelize = new Sequelize((process.env.DATABASE_URL && process.env.DATABASE_URL + "?sslmode=no-verify") || `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
