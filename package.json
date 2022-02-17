@@ -12,7 +12,10 @@
   "scripts": {
     "start": "node api/index.js",
     "build": "cd client && react-scripts build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:api": "cd api && npm install",
+    "install:client": "cd client && npm install",
+    "postinstall": "npm run install:api && npm run install:client"
   },
   "repository": {
     "type": "git",
