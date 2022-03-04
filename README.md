@@ -1,6 +1,10 @@
 ## About
 GameSearch is a Single Page Application made during the <a href="https://soyhenry.com/">Henry</a> bootcamp.
 
+## Visit website
+Front-end and Back-end are deployed and you can visit the live version here:
+https://jh-game-search.herokuapp.com/
+
 ## Technologies
 The technologies used are: 
 - JavaScript
